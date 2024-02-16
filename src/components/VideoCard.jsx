@@ -3,16 +3,17 @@ import usrIcon from "../utilies/social.png";
 
 const VideoCard = ({ videoData }) => {
   const { thumbnails, channelTitle, title } = videoData.snippet;
+
   return (
-    <div className="w-72 overflow-hidden dark:text-white p-2">
+    <div className="w-96 overflow-hidden dark:text-white p-2">
       <div className="rounded-2xl hover:rounded-none hover:duration-500 overflow-hidden">
         <img
           alt="thumbnail"
           src={thumbnails?.medium?.url}
-          className="w-full h-40 object-cover"
+          className="w-full h-48 object-cover"
         />
       </div>
-      <div className=" flex justify-between items-start py-2">
+      <div className=" flex items-start justify-start py-2">
         <img
           src={usrIcon}
           alt="channel icon"

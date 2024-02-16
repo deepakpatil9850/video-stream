@@ -4,7 +4,7 @@ import Body from "./components/Body";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import StreamPage from './components/StreamPage'
+import WatchPage from "./components/WatchPage";
 import MainContainer from "./components/MainContainer";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
     },
     {
       path:'/watch',
-      element: <StreamPage />
+      element: <WatchPage />
     }
   ]
   }])

@@ -41,7 +41,10 @@ const MainContainer = () => {
   return (
     <div className="w-full p-5 flex flex-wrap justify-around align-top absolute top-12 dark:bg-stone-900">
       {data?.items.map((item) => (
-        <Link key={item.id} to={"/watch?v=" + item.id}>
+        <Link
+          key={item.id}
+          to={"/watch?v=" + item.id + "&cid=" + item.snippet.channelId}
+        >
           <VideoCard videoData={item} />
         </Link>
       ))}
