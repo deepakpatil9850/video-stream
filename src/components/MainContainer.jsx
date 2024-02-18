@@ -4,7 +4,7 @@ import SubContainer from "./SubContainer";
 
 const MainContainer = () => {
   return (
-    <div className="w-full absolute top-20">
+    <div className="w-full absolute top-14">
       <CategoriesBtn />
       <SubContainer />
     </div>

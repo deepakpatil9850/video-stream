@@ -21,18 +21,17 @@ const RecommendList = () => {
   }, [channelId]);
 
   return (
-    <div>
+    <div className="pl-3">
       <div>
         {recoList.length !== 0 &&
           recoList.items.map((item) => (
             <Link
               key={item?.id}
-              to={
-                "/watch?v=" +
-                item?.contentDetails?.upload?.videoId +
-                "&cid=" +
-                item?.snippet?.channelId
-              }
+              to={`/watch?v=${
+                item?.contentDetails?.upload?.videoId !== undefined
+                  ? item?.contentDetails?.upload?.videoId
+                  : item?.contentDetails?.playlistItem?.resourceId?.videoId
+              }&cid=${item?.snippet?.channelId}`}
             >
               <HorizonVideoCard item={item?.snippet} />
             </Link>

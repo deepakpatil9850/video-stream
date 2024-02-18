@@ -20,7 +20,7 @@ const CategoriesBtn = () => {
 
   if (databtn === null)
     return (
-      <div className="p-2 grid grid-flow-col auto-cols-max overflow-hidden  fixed bg-white dark:bg-black dark:text-white z-30">
+      <div className="p-2 grid grid-flow-col auto-cols-max overflow-hidden text-center fixed bg-white dark:bg-black dark:text-white z-30">
         No Button Loded
       </div>
     );
