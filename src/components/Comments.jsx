@@ -9,15 +9,15 @@ const Comments = ({ videoId }) => {
       const data = await fetch(
         `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`
       );
+
       const commentJson = await data.json();
       setCommentList(commentJson);
-      console.log(commentJson);
     }
     fetchData();
   }, [videoId]);
 
   if (
-    commentList?.error?.code === 403 ||
+    commentList?.error?.code >= 400 ||
     commentList.length === 0 ||
     commentList === undefined ||
     commentList === null

@@ -4,7 +4,7 @@ import VideoCard from "./VideoCard";
 import { Link, useSearchParams } from "react-router-dom";
 
 const MainContainer = () => {
-  const [data, setData] = useState(null);
+  const [loadData, setLoadData] = useState(null);
   const [params] = useSearchParams();
 
   useEffect(() => {
@@ -24,12 +24,12 @@ const MainContainer = () => {
     const fetchLink = () => {
       checkParam()
         .then((res) => res.json())
-        .then((jsonData) => setData(jsonData));
+        .then((jsonData) => setLoadData(jsonData.items));
     };
     fetchLink();
   }, [params]);
 
-  if (data === null || data.hasOwnProperty("error"))
+  if (loadData === null || loadData.hasOwnProperty("error"))
     return (
       <div className="w-full flex justify-center items-center absolute top-12">
         <h1 className="m-5 text-center font-bold text-xl">
@@ -37,10 +37,10 @@ const MainContainer = () => {
         </h1>
       </div>
     );
-
+  console.log("render");
   return (
     <div className="w-full p-5 flex flex-wrap justify-around align-top absolute top-12 dark:bg-stone-900">
-      {data?.items.map((item) => (
+      {loadData?.map((item) => (
         <Link
           key={item.id}
           to={"/watch?v=" + item.id + "&cid=" + item.snippet.channelId}

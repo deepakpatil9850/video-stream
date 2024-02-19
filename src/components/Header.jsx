@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 import { useDispatch, useSelector } from "react-redux";
 import { isSetMenu } from "../store/slice/menuSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addResults } from "../store/slice/searchSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../utilies/youtube-logo.png";
@@ -12,10 +12,11 @@ import {
   faBell,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   const dispatch = useDispatch();
-
+  const mouseOnSuggestion = useRef(false);
   const [searchText, setSearchText] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestion, setShowSuggestions] = useState(false);
@@ -69,7 +70,7 @@ export const Header = () => {
   const handleMenuClick = () => {
     dispatch(isSetMenu());
   };
-
+  console.log("header Renderd");
   return (
     <div className="w-full flex justify-between px-4 items-center fixed top-0 z-50 bg-white dark:bg-stone-900 p-2">
       <div className="w-2/12 items-center justify-center flex">
@@ -95,29 +96,41 @@ export const Header = () => {
             onFocus={() => {
               setShowSuggestions(true);
             }}
-            onBlur={() => {
-              setShowSuggestions(false);
-            }}
+            onBlur={() =>
+              mouseOnSuggestion.current ? "" : setShowSuggestions(false)
+            }
           />
-          <button
-            type="search"
-            className="dark:text-white rounded-r-full dark:bg-stone-800 border-l dark:border-gray-800 py-2 px-5"
-            onClick={() => setSearchText("")}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
+          <Link to={"/search?q=" + searchText}>
+            <button
+              type="search"
+              className="dark:text-white rounded-r-full dark:bg-stone-800 border-l dark:border-gray-800 py-2 px-5"
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </button>
+          </Link>
         </div>
         {showSuggestion && suggestions.length > 0 && (
-          <div className="bg-white  dark:bg-stone-800 dark:text-white py-3  w-full mt-2 absolute rounded b">
+          <div
+            className="bg-white  dark:bg-stone-800 dark:text-white py-3  w-full mt-2 absolute rounded"
+            onMouseEnter={() => (mouseOnSuggestion.current = true)}
+            onMouseLeave={() => {
+              mouseOnSuggestion.current = false;
+            }}
+          >
             <ul>
               {suggestions.map((sugg, ind) => (
-                <li
-                  key={ind}
-                  className="py-1 tracking-tight line-clamp-1 dark:hover:bg-stone-700 px-5 cursor-pointer"
-                  onClick={() => setSearchText(sugg)}
-                >
-                  {sugg}
-                </li>
+                <Link key={ind} to={"/search?q=" + sugg}>
+                  <li
+                    key={ind}
+                    className="py-1 tracking-tight line-clamp-1 dark:hover:bg-stone-700 px-5 cursor-pointer"
+                    onClick={() => {
+                      setSearchText(sugg);
+                      setShowSuggestions(false);
+                    }}
+                  >
+                    {sugg}
+                  </li>
+                </Link>
               ))}
             </ul>
           </div>

@@ -26,7 +26,7 @@ const VideoCard = ({ videoData }) => {
           </h1>
           <p className="mt-1 text-xs">{channelTitle}</p>
           <span className="lining-nums text-xs">
-            {videoData.statistics.viewCount} views
+            {videoData?.statistics?.viewCount} views
           </span>
         </div>
       </div>
