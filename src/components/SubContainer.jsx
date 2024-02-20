@@ -29,21 +29,21 @@ const MainContainer = () => {
     fetchLink();
   }, [params]);
 
-  if (loadData === null || loadData.hasOwnProperty("error"))
+  if (loadData === null || loadData?.error?.code >= 400)
     return (
-      <div className="w-full flex justify-center items-center absolute top-12">
+      <div className="w-full flex justify-center dark:text-white items-center absolute top-16">
         <h1 className="m-5 text-center font-bold text-xl">
           No video available
         </h1>
       </div>
     );
-  console.log("render");
+
   return (
     <div className="w-full p-5 flex flex-wrap justify-around align-top absolute top-12 dark:bg-stone-900">
       {loadData?.map((item) => (
         <Link
-          key={item.id}
-          to={"/watch?v=" + item.id + "&cid=" + item.snippet.channelId}
+          key={item?.id}
+          to={"/watch?v=" + item?.id + "&cid=" + item?.snippet?.channelId}
         >
           <VideoCard videoData={item} />
         </Link>

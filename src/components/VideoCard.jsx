@@ -1,8 +1,19 @@
-import React from "react";
-import usrIcon from "../utilies/social.png";
+import React, { useState } from "react";
+import { API_KEY } from "../utilies/constants";
 
 const VideoCard = ({ videoData }) => {
-  const { thumbnails, channelTitle, title } = videoData.snippet;
+  const [channelImageUrl, setChannelImageUrl] = useState("");
+  const { thumbnails, channelTitle, title, channelId } = videoData.snippet;
+
+  const fetchData = async () => {
+    const channelData = await fetch(
+      `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${API_KEY}`
+    );
+    const dataJson = await channelData.json();
+    setChannelImageUrl(dataJson?.items[0]?.snippet?.thumbnails?.default?.url);
+  };
+
+  fetchData();
 
   return (
     <div className="w-96 overflow-hidden dark:text-white p-2">
@@ -15,9 +26,9 @@ const VideoCard = ({ videoData }) => {
       </div>
       <div className=" flex items-start justify-start py-2">
         <img
-          src={usrIcon}
+          src={channelImageUrl}
           alt="channel icon"
-          className="w-9 align-middle dark:rounded-full py-2"
+          className="w-9 rounded-full mt-3"
         />
 
         <div className=" ml-2 text-stone-700 dark:text-stone-400  font-roboto tracking-tight">

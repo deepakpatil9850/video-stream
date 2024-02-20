@@ -1,7 +1,7 @@
 import React from "react";
 
-const HorizonVideoCard = ({ item }) => {
-  const { title, description, thumbnails } = item;
+const HorizonVideoCard = ({ item, channelImgUrl, channelName }) => {
+  const { title, thumbnails } = item;
   return (
     <div className="w-full overflow-hidden p-1 my-1">
       <div className="flex">
@@ -12,11 +12,18 @@ const HorizonVideoCard = ({ item }) => {
             className="rounded-md"
           />
         </div>
-        <div className="w-3/5 tracking-tight flex flex-col justify-between p-1">
+        <div className="w-3/5 tracking-tight flex flex-col justify-between p-2">
           <p className="line-clamp-2 text-stone-900 dark:text-stone-200 font-normal">
-            {description}
+            {title}
           </p>
-          <p className="line-clamp-1 text-sm">{title}</p>
+          <div className="flex items-center">
+            <img
+              src={channelImgUrl}
+              alt="channel logo"
+              className="w-6 mr-2 rounded-full"
+            />
+            <p className="line-clamp-1 text-sm">{channelName}</p>
+          </div>
         </div>
       </div>
     </div>

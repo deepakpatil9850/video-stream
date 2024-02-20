@@ -1,12 +1,7 @@
-import { useSearchParams } from "react-router-dom";
 import Comments from "./Comments";
 import VideoDetails from "./VideoDetails";
 
-const StreamPage = () => {
-  const [params] = useSearchParams();
-  const videoId = params.get("v");
-  const channelId = params.get("cid");
-
+const StreamPage = ({ videoId, channelId }) => {
   return (
     <div className="pr-6">
       <div>

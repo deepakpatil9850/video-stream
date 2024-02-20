@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
-  const menuShowState = useSelector((store) => store.menu.menuState);
+  const menuShowState = useSelector((store) => store?.menu?.menuState);
+
   return (
     menuShowState && (
-      <div className="border w-2/12 h-screen fixed  top-20 pl-4 left-0 z-50 bg-white dark:bg-stone-900 ">
+      <div className="w-2/12 h-screen fixed  top-14 pl-4 left-0 z-50 bg-white dark:bg-stone-800 ">
         <div className="text-left ml-4">
           <ul className="dark:text-white">
             <NavLink to={"/"}>
@@ -21,5 +22,4 @@ const SideBar = () => {
     )
   );
 };
-
 export default SideBar;
