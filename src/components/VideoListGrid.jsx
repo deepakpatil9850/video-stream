@@ -4,7 +4,7 @@ import VideoCard from "./VideoCard";
 
 const VideoListGrid = ({ loadData }) => {
   return (
-    <div className="w-full p-5 flex flex-wrap justify-around align-top absolute top-12 dark:bg-stone-900">
+    <div className="w-full sm:grid sm:grid-cols-2 sm:gap-3 sm:p-3  lg:grid-cols-3 lg:gap-6 lg:p-6 2xl:grid-cols-4 absolute top-12 dark:bg-stone-900">
       {loadData !== null &&
         loadData?.map((item) => (
           <Link

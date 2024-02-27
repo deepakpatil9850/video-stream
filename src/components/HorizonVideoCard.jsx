@@ -5,14 +5,14 @@ const HorizonVideoCard = ({ item, channelImgUrl, channelName }) => {
   return (
     <div className="w-full overflow-hidden p-1 my-1">
       <div className="flex">
-        <div className="w-2/5">
+        <div className="w-5/12">
           <img
             src={thumbnails?.medium?.url}
             alt="thumbnail"
-            className="rounded-md"
+            className="rounded-md aspect-video"
           />
         </div>
-        <div className="w-3/5 tracking-tight flex flex-col justify-between p-2">
+        <div className="w-7/12 tracking-tight flex flex-col justify-between p-2">
           <p className="line-clamp-2 text-stone-900 dark:text-stone-200 font-normal">
             {title}
           </p>

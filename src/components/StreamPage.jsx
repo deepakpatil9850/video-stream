@@ -3,15 +3,14 @@ import VideoDetails from "./VideoDetails";
 
 const StreamPage = ({ videoId, channelId }) => {
   return (
-    <div className="pr-6">
+    <div className="w-full">
       <div>
         <iframe
-          width="640"
-          height="360"
           src={"https://www.youtube.com/embed/" + videoId}
           title="YouTube video player"
           allowFullScreen
-          className="rounded-xl"
+          autoPlay
+          className="md:rounded-xl aspect-video w-full"
         />
         {/* Video Statistics */}
         <div>

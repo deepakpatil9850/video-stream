@@ -4,7 +4,7 @@ import SideBar from "./SideBar";
 
 const Body = () => {
   return (
-    <div className="w-full h-auto relative">
+    <div className="w-full min-h-screen relative">
       <Header />
       <SideBar />
       <Outlet />

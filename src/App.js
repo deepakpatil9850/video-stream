@@ -1,5 +1,4 @@
 import "./App.css"
-import { Header } from "./components/Header";
 import Body from "./components/Body";
 import { Provider } from "react-redux";
 import store from "./store/store";
@@ -7,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import WatchPage from "./components/WatchPage";
 import MainContainer from "./components/MainContainer";
 import SearchResult from "./components/SearchResult";
+import ErrorPageNotFound from "./components/ErrorPageNotFound";
 
 function App() {
 
@@ -22,17 +22,21 @@ function App() {
     element:<Body/>,
     children:[{
       path:'/',
-      element:<MainContainer />
+      element:<MainContainer />,
+      errorElement:<ErrorPageNotFound/>
     },
     {
       path:'/watch',
-      element: <WatchPage />
+      element: <WatchPage />,
+      errorElement:<ErrorPageNotFound/>
     },
     {
       path:'/search',
-      element: <SearchResult />
+      element: <SearchResult />,
+      errorElement:<ErrorPageNotFound/>
     }
-  ]
+  ],
+  errorElement:<ErrorPageNotFound />,
   }],{
     basename:"/"
   })

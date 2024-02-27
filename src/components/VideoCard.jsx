@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { API_KEY } from "../utilies/constants";
+import { API_KEY, count } from "../utilies/constants";
 
 const VideoCard = ({ videoData }) => {
   const [channelImageUrl, setChannelImageUrl] = useState("");
@@ -16,12 +16,12 @@ const VideoCard = ({ videoData }) => {
   fetchData();
 
   return (
-    <div className="w-96 overflow-hidden dark:text-white p-2">
-      <div className="rounded-2xl hover:rounded-none hover:duration-500 overflow-hidden">
+    <div className="overflow-hidden dark:text-white mb-2">
+      <div className="aspect-video sm:rounded-2xl sm:hover:rounded-none sm:hover:duration-500 overflow-hidden">
         <img
           alt="thumbnail"
           src={thumbnails?.medium?.url}
-          className="w-full h-48 object-cover"
+          className="w-full object-cover aspect-video"
         />
       </div>
       <div className=" flex items-start justify-start py-2">
@@ -31,14 +31,18 @@ const VideoCard = ({ videoData }) => {
           className="w-9 rounded-full mt-3"
         />
 
-        <div className=" ml-2 text-stone-700 dark:text-stone-400  font-roboto tracking-tight">
-          <h1 className="line-clamp-3 p-1 text-stone-900 dark:text-stone-200 font-normal">
+        <div className=" ml-2 text-stone-700 dark:text-stone-400 font-serif font-medium ">
+          <h1 className="line-clamp-2 p-1 text-stone-900 dark:text-stone-200">
             {title}
           </h1>
-          <p className="mt-1 text-xs">{channelTitle}</p>
-          <span className="lining-nums text-xs">
-            {videoData?.statistics?.viewCount} views
-          </span>
+          <div className="flex sm:flex-none">
+            <p className="text-sm">{channelTitle} &nbsp;</p>
+            {videoData?.statistics?.viewCount && (
+              <span className="text-sm">
+                {count(videoData?.statistics?.viewCount)} views
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -8,38 +8,33 @@ const MainContainer = () => {
   const [params] = useSearchParams();
 
   useEffect(() => {
-    const checkParam = () => {
-      if (params.size === 0)
-        return fetch(
-          "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=24&regionCode=IN&key=" +
-            API_KEY
-        );
-      return fetch(
-        "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=24&regionCode=IN&key=" +
-          API_KEY +
-          "&videoCategoryId=" +
-          params.get("Category")
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=24&regionCode=IN&key=${API_KEY}&${
+          params.size === 0 ? "" : `&videoCategoryId=${params.get("Category")}`
+        }`
       );
+      const data = await response.json();
+      setLoadData(data.items);
     };
-    const fetchLink = () => {
-      checkParam()
-        .then((res) => res.json())
-        .then((jsonData) => setLoadData(jsonData.items));
-    };
-    fetchLink();
+    fetchData();
   }, [params]);
 
-  if (loadData === null || loadData?.error?.code >= 400)
+  if (
+    loadData === undefined ||
+    loadData === null ||
+    loadData?.error?.code === 400
+  )
     return (
-      <div className="w-full flex justify-center dark:text-white items-center absolute top-16">
-        <h1 className="m-5 text-center font-bold text-xl">
+      <div className="w-full min-h-screen flex justify-center items-center dark:text-white dark:bg-black absolute top-14">
+        <h1 className="m-5 text-center font-bold text-xl ">
           No video available
         </h1>
       </div>
     );
 
   return (
-    <div className="w-full p-5 flex flex-wrap justify-around align-top absolute top-12 dark:bg-stone-900">
+    <div className="w-full sm:grid sm:grid-cols-2 sm:gap-3 sm:p-3  lg:grid-cols-3 lg:gap-6 lg:p-6 2xl:grid-cols-4 absolute top-12 dark:bg-stone-900">
       {loadData?.map((item) => (
         <Link
           key={item?.id}
