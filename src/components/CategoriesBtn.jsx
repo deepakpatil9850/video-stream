@@ -18,8 +18,8 @@ const CategoriesBtn = () => {
       const json = await dataBtn.json();
       setDatabtn(json);
     } catch (e) {
-      <div className="p-2 w-full text-center fixed bg-white dark:bg-black dark:text-red-800 z-30">
-        Sorry ... Some Technical Issue
+      <div className="p-2 w-full text-center fixed bg-white dark:bg-black text-red-800 z-30">
+        something went wrong...😥
       </div>;
     }
   };
@@ -27,7 +27,7 @@ const CategoriesBtn = () => {
   if (databtn?.error?.code >= 400)
     return (
       <div className="p-2 w-full text-center fixed bg-white dark:bg-black dark:text-red-900 z-30">
-        Sorry ... Some Technical Issue : {databtn?.error?.message}
+        🔧 Some Technical Issue..
       </div>
     );
 

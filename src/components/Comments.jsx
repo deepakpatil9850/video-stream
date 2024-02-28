@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { API_KEY } from "../utilies/constants";
+import ErrorMini from "./ErrorMini";
 
 const Comments = ({ videoId }) => {
   const [commentList, setCommentList] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`
-      );
+      try {
+        setIsLoading(true);
+        const data = await fetch(
+          `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`
+        );
 
-      const commentJson = await data.json();
-      setCommentList(commentJson);
+        const commentJson = await data.json();
+        setCommentList(commentJson);
+        setIsLoading(false);
+      } catch (error) {
+        setError(true);
+      }
     }
     fetchData();
   }, [videoId]);
+  if (isLoading) return <div>loading...</div>;
+  if (commentList?.error?.code || error) return <ErrorMini />;
 
-  if (
-    commentList?.error?.code >= 400 ||
-    commentList.length === 0 ||
-    commentList === undefined ||
-    commentList === null
-  ) {
+  if (commentList.length === 0 || commentList === undefined) {
     return (
       <div>
         <h1>Comments are Disabled</h1>
@@ -32,7 +38,7 @@ const Comments = ({ videoId }) => {
   return (
     <div>
       <div>
-        {commentList?.items.length !== 0 &&
+        {commentList?.items?.length !== 0 &&
           commentList?.items?.map((item) => (
             <div key={item?.etag} className=" flex p-3">
               <div className=" h-16 w-16">

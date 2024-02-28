@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addResults } from "../store/slice/searchSlice";
+import SearchError from "./SearchError";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const SearchBar = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestion, setShowSuggestions] = useState(false);
   const searchCache = useSelector((store) => store.search);
+  const [error, setError] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,8 +50,7 @@ const SearchBar = () => {
         // cache updated
         dispatch(addResults({ [searchText]: suggestion }));
       } catch (e) {
-        alert("Please install CORS extension in your brower");
-        console.error(e);
+        setError(true);
       }
     };
     return () => {
@@ -59,6 +60,7 @@ const SearchBar = () => {
 
   return (
     <div>
+      {error && <SearchError setError={setError} />}
       <div className="flex border border-gray-300 dark:border-stone-700 rounded-full w-full">
         <input
           type="text"

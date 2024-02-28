@@ -4,7 +4,7 @@ import VideoCard from "./VideoCard";
 import { Link, useSearchParams } from "react-router-dom";
 
 const MainContainer = () => {
-  const [loadData, setLoadData] = useState(null);
+  const [loadData, setLoadData] = useState([]);
   const [params] = useSearchParams();
 
   useEffect(() => {
@@ -23,13 +23,11 @@ const MainContainer = () => {
   if (
     loadData === undefined ||
     loadData === null ||
-    loadData?.error?.code === 400
+    loadData?.error?.code >= 400
   )
     return (
-      <div className="w-full min-h-screen flex justify-center items-center dark:text-white dark:bg-black absolute top-14">
-        <h1 className="m-5 text-center font-bold text-xl ">
-          No video available
-        </h1>
+      <div className="w-full min-h-screen flex justify-center items-center dark:text-white dark:bg-stone-900 absolute top-14">
+        <h1 className="m-5 text-center text-4xl ">No video found😥</h1>
       </div>
     );
 
